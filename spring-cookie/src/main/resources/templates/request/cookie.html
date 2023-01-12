@@ -7,9 +7,12 @@
 </head>
 <body>
 	<form action="/response/cookie" method="post">
+		<!-- 입력 칸 -->
 		<input type="text" name="CookieName" placeholder="쿠키 이름" />	<br>
 		<input type="text" name="CookieValue" placeholder="쿠키 값" />	<br>
 		<input type="text" name="path" placeholder="URL"/> <br>
+		
+		<!-- 버튼 -->
 		<button type="submit">쿠키 생성</button>
 		<button type="submit" name="delete">쿠키 삭제</button>
 		<button type="submit" name="deleteAll">전체 삭제</button>
@@ -18,7 +21,7 @@
 	<br>
 	
 	<table border="1">
-		<tr>
+		<tr><!-- 표 생성 -->
 			<th width="100"> 쿠키 </th>
 			<th width="100"> 값 </th>
 			<th width="100"> URL </th>

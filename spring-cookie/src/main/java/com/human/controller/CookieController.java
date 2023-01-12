@@ -1,11 +1,12 @@
 package com.human.controller;
 
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpHeaders; ////////////////////
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,11 +20,19 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class CookieController {
 
+	/*
+	 * 모든 쿠키 정보 확인
+	 * @param request
+	 * @return 
+	 */
 	
-	@GetMapping("/request/cookie")
+	
+	@GetMapping("/request/cookie") // 클라이언트가 /request/cookie 라고 요청을 보내면...
 	public String cookie(HttpServletRequest request, Model model) {
-		// HttpServletRequest는 요청객체
+		// HttpServletRequest는 요청을 다루는 객체
 		
+		// 요청객체로부터 쿠키 가져오기
+		// getCookies 메소드를 사용하면 쿠키정보를 가져올 수 있음
 		// ctrl 해서 클릭하면 배열로 가져오는 것을 확인 가능
 		Cookie[] cookies = request.getCookies(); 
 		

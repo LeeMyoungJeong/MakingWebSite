@@ -133,7 +133,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				   	 + " FROM users "
 				   	 + " WHERE user_id = ? ";
 		String sql2 = " SELECT user_id as username, auth "
-					+ " FROM user_auth "
+					 + " FROM user_auth "
 				     + " WHERE user_id = ? ";
 		auth.jdbcAuthentication()	// JDBC 방식으로 인증 (데이터베이스에 등록된 사용자 정보로 인증)
 			.dataSource( dataSource )
@@ -159,7 +159,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Bean
 	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception {
-		// TODO Auto-generated method stub
 		return super.authenticationManagerBean();
 	}
 	

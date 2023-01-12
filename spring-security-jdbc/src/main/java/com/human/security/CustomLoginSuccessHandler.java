@@ -38,8 +38,8 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
 		}
 		// 아이디 저장 x -> 쿠키 삭제
 		else {
-			Cookie cookie = new Cookie("remember-id", username );
-			cookie.setMaxAge(60*60*24*10);    // 유효기간 : 10일
+			Cookie cookie = new Cookie("remember-id", null );
+			cookie.setMaxAge(0);    // 유효기간 : 10일
 			cookie.setPath("/");
 			response.addCookie(cookie);
 		}

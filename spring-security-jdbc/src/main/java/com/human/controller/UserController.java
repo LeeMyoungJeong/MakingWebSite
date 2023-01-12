@@ -30,8 +30,8 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	//@Autowired
-	//private AuthenticationManager authenticationManager;
+	@Autowired
+	private AuthenticationManager authenticationManager;
 	
 	//메인페이지 
 	@GetMapping("/")
@@ -97,7 +97,7 @@ public class UserController {
 		}
 		
 		
-		// addFlashAttributes("파라미터명", 값)
+		// addFlashAttributes("파라미터명", 값) 
 		// : 리다이렉트 하면서 임시로 저장할 데이터를 등록하는 메소드 
 		rttr.addFlashAttribute("msg", user.getUserId());
 		
@@ -112,8 +112,8 @@ public class UserController {
 			return"/auth/success";
 		}
 	
-	@Autowired
-	private AuthenticationManager authenticationManager;
+	//@Autowired
+	//private AuthenticationManager authenticationManager;  --선생님이 이거 왜 맨위로 올렸는지 이유 이해 불가
 		
 	// 회원 가입 후 바로 로그인 처리
 		private HttpSession joinAndAuthentication(Users user, HttpServletRequest request) throws Exception {
