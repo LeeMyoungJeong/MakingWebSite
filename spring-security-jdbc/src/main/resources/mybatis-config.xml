@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<!-- 설정 -->
+	<settings>
+		<!-- 언더스코어 케이스인 컬럼을 카멜케이스로 변환하는 설정 -->
+		<!-- 예를 들어 board_no 라고 쓴 것이 있다면 boardNo로 자동 변환시켜줌 -->
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
+	
+
+	
+	<!-- 타입 별칭 설정 -->	
+	<typeAliases>
+		<!-- 클래스 하나하나 별칭을 짓는거보다는  
+		<typeAlias alias="Board" type="com.human.doain.board"/> -->
+		  
+		<!-- <typeAlias alias="Board" type="com.human.doain.board"/>  -->
+	
+		<!-- 테이블과 매핑할 DTO가 있는 패키지 경로 지정 -->
+		<package name="com.human.domain"/>
+	</typeAliases>
+
+
+
+
+</configuration>
