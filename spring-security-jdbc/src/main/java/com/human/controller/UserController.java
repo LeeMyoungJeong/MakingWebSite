@@ -30,8 +30,8 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@Autowired
-	private AuthenticationManager authenticationManager;
+	//@Autowired
+	//private AuthenticationManager authenticationManager;
 	
 	//메인페이지 
 	@GetMapping("/")
@@ -93,7 +93,7 @@ public class UserController {
 		
 		// 회원가입 성공 시, 바로 로그인 
 		if(result > 0 ) {
-			HttpSession session = joinAndAuthentication(user, request);
+			HttpSession session = userService.tokenAuthentication(user, request);
 		}
 		
 		
@@ -102,7 +102,7 @@ public class UserController {
 		rttr.addFlashAttribute("msg", user.getUserId());
 		
 		// return "redirect:/auth/success"; // 가입완료 페이지
-		return "redirect:/user";
+		return "redirect:/"; // 회원가입 후에 갈 경로 (원래는 user 였기때문에 사용자페이지로 왔음)
 	}
 	
 	// 회원 가입 완료 - /auth/success
@@ -115,11 +115,14 @@ public class UserController {
 	//@Autowired
 	//private AuthenticationManager authenticationManager;  --선생님이 이거 왜 맨위로 올렸는지 이유 이해 불가
 		
-	// 회원 가입 후 바로 로그인 처리
-		private HttpSession joinAndAuthentication(Users user, HttpServletRequest request) throws Exception {
+	// 토큰 생성 후, 인증 처리
+		/*private HttpSession tokenAuthentication(Users user, HttpServletRequest request) throws Exception {
 			
 			String username = user.getUserId();
-			String password = user.getUserPw();
+			String password = user.getUserPwChk();  	// userPw는 암호화되기 때문에, userPwChk를 사용함
+			log.info("username : " + username);
+			log.info("password : " + password);
+			
 			
 			HttpSession session = request.getSession();
 			
@@ -138,6 +141,7 @@ public class UserController {
 			
 			return session;
 		}
+		*/
 		
 		
 }

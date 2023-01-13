@@ -1,19 +1,35 @@
 package com.human.service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Service;
 
 import com.human.domain.UserAuth;
 import com.human.domain.Users;
 import com.human.mapper.UserMapper;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService { 
+	
 		@Autowired
 		private UserMapper mapper;
 		@Autowired
 		private PasswordEncoder passwordEncoder;		
+		
+		@Autowired
+		private AuthenticationManager authenticationManager;
+		
 		@Override
 		public int join(Users user) throws Exception {
 			
@@ -34,5 +50,36 @@ public class UserServiceImpl implements UserService {
 			}
 			
 			return result;
+		}
+		//토큰 생성 후, 인증 처리
+		@Override
+		
+		public HttpSession tokenAuthentication(Users user, HttpServletRequest request) throws Exception {
+		
+			String username = user.getUserId();
+			String password = user.getUserPwChk();  	// userPw는 암호화되기 때문에, userPwChk를 사용함
+			log.info("username : " + username);
+			log.info("password : " + password);
+			
+			
+			HttpSession session = request.getSession();
+			
+			// 아이디, 패스워드로 인증토큰 생성 
+			UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
+			
+			// 토큰에 요청정보를 등록
+			token.setDetails( new WebAuthenticationDetails(request));
+			
+			// 토큰을 이용하여 인증 (로그인)
+			Authentication authentication = authenticationManager.authenticate(token);
+			User authUser = (User) authentication.getPrincipal();
+			log.info("인증된 사용자 아이디 : " + authUser.getUsername());
+			
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+			
+			return session;
+		}
+			
+			
 		}	
-}
+
