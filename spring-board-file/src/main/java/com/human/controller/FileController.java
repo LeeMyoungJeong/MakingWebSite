@@ -76,9 +76,7 @@ public class FileController {
 		 * 
 		 */
 	  @GetMapping("/img")
-	  public void showImg(@PathVariable("filePath") String filePath
-			  			,HttpServletResponse response ) throws Exception {
-		  
+	  public void showImg(String filePath ,HttpServletResponse response ) throws Exception {
 		  log.info("filePath : " + filePath);
 		  
 		  File file = new File(filePath);

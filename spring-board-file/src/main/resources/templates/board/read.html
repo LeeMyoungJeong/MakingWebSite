@@ -35,9 +35,10 @@
 				<td>썸네일</td>
 				<td>
 					<ul>
+						
 						<th:block th:each="file : ${fileList}">
 							<li>
-								<img th:src="|/file/img?filePath=${file.filePath}|" width="200" th:alt="${file.fileName}"/>
+								<img th:src="|/file/img?filePath=${file.filePath}|" width="200" th:alt="${file.fileName}" />
 							</li>
 						</th:block>
 					</ul>
