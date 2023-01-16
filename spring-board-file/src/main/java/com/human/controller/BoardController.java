@@ -65,6 +65,23 @@ public class BoardController {
 		
 		return "/board/list";		// board/list.html
 	}
+	/**
+	 * 게시글 검색
+	 * @param model
+	 * @param keyword
+	 * @return
+	 * @throws Exception
+	 */
+	@GetMapping(path = "/board/list", params = "keyword")
+	public String search(Model model, String keyword) throws Exception {
+		
+		// 게시글 검색 요청
+		List<Board> boardList = service.list(keyword);
+		
+		model.addAttribute("boardList", boardList);
+		
+		return "/board/list";		// board/list.html
+	}
 	
 	/**
 	 * 게시글 쓰기 - 화면		GET 	/board/insert

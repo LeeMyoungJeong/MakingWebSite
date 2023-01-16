@@ -16,8 +16,11 @@ import com.human.domain.Board;
 import com.human.domain.Files;
 import com.human.mapper.BoardMapper;
 import com.human.mapper.FileMapper;
+import com.human.utils.FileUtil;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service			// 컨테이너의 빈으로 등록, 비즈니스 로직을 처리하는 서비스로 구분
 public class BoardServiceImpl implements BoardService {
 //The type BoardServiceImpl must implement the inherited abstract method BoardService.read(int)
@@ -32,6 +35,9 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Autowired
 	private FileMapper fileMapper;
+	
+	@Autowired
+	private FileUtil fileUtil;
 	
 	@Override
 	public List<Board> list() throws Exception {
@@ -98,7 +104,42 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int delete(int boardNo) throws Exception {
+	
+		// 첨부된 파일 목록 조회
+		Files file = new Files();
+		file.setParentTable("board");
+		file.setParentNo(boardNo);
+		List<Files> fileList = fileMapper.listByParentNo(file);
+		
+		// 파일 목록 삭제
+		for (Files deleteFile : fileList) {
+			
+			String filePath = deleteFile.getFilePath();
+			int fileNo = deleteFile.getFileNo();
+			
+			// 실제 파일 삭제 
+			boolean result = fileUtil.delete(filePath);
+			
+			// int result = fileService.delete(fileNo);
+			
+			// 파일 삭제 시, 문제 발생
+			if( !result ) {
+				// DB 파일 정보 삭제
+				fileMapper.delete(fileNo);
+			} 
+			else {
+				log.info("파일 삭제 시, 문제가 발생하였습니다.");
+			}
+		}
+		
+		
 		return mapper.delete(boardNo);
+	}
+
+	@Override
+	public List<Board> list(String keyword) throws Exception {
+		// 아까 쿼리 만든것 연결해야 함
+		return mapper.search(keyword);
 	}
 	
 	

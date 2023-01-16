@@ -12,8 +12,19 @@
 	                    Board만 써도 됨 -->
 	<!-- 게시글 목록 조회 -->
 	<select id = "list" resultType = "Board">
+		SELECT *
+		FROM board
+		ORDER BY reg_date DESC
+	</select>
+	
+	<!-- 게시글 검색 -->
+	<select id = "search" resultType = "Board">
 	SELECT *
 	FROM board
+	WHERE title LIKE '%' || #{keyword} || '%'
+	   OR writer LIKE '%' || #{keyword} || '%'
+	   OR content LIKE '%' || #{keyword} || '%'
+	   
 	ORDER BY reg_date DESC
 	</select>
 	

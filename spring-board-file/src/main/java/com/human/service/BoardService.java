@@ -23,6 +23,9 @@ public interface BoardService {
 	// 게시글 삭제
 	public int delete(int boardNo) throws Exception;
 
+	// 게시글 검색 (매개변수가 키워드인)
+	public List<Board> list(String keyword) throws Exception;
+
 	// read 부터 delete 까지 오버라이딩 ㄱㄱ
 }
 

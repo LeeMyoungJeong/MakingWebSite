@@ -25,5 +25,10 @@
 	
 	</select>
 	
+	<!-- 파일 삭제 쿼리 -->
+	<delete id="delete">
+		DELETE FROM files
+		WHERE file_no = #{fileNo}
+	</delete>
 
 </mapper>
